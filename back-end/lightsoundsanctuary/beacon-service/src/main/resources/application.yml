@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: beacon-service
+aws:
+  region: us-east-1
+  s3:
+    bucket: light-sound-sanctuary-beacons
+
+logging:
+  level:
+    com.lightsoundsantuary.beacon-service: DEBUG
+    org.springframework.cloud.openfeign: DEBUG
