@@ -1,3 +1,5 @@
+package com.lightsoundsanctuary.gateway_service.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -11,12 +13,13 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
-                .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/api/**").authenticated()
-                        .anyExchange().permitAll()
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .authorizeExchange(exchange -> exchange
+                        // Allow unauthenticated access to these OAuth2 paths
+                        .pathMatchers("/oauth2/**", "/login/**", "/api/users/oauth2/success").permitAll()
+                        .pathMatchers("/api/**").permitAll()
+                        .anyExchange().authenticated() // optional: permitAll() if no auth needed
                 )
-                .oauth2Login()
-                .and()
-                .build();
+                .build(); // no .oauth2Login() – delegate to user-service
     }
 }

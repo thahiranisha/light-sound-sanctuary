@@ -102,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "defaultProject": "front-end"
   }
 }

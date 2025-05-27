@@ -2,11 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import {SantuaryMapComponent} from "./santuary-map/santuary-map.component";
-
+import {LoginComponent} from "./landing/login/login.component";
+import {CallbackComponent} from "./landing/callback/callback.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 const routes: Routes = [
-  { path: '', component: LandingComponent }, // Your landing page here
-  { path: 'beacons', component: SantuaryMapComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'signup', component: LoginComponent },
+  { path: 'oauth-success', component: CallbackComponent },
+  { path: '', component: LandingComponent },
+  { path: '**', redirectTo: '' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

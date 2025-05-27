@@ -11,6 +11,10 @@ import { MediaComponent } from './media/media.component';
 import { NotificationComponent } from './notification/notification.component';
 import { SantuaryMapComponent } from './santuary-map/santuary-map.component';
 import { LandingComponent } from './landing/landing.component';
+import {LoginComponent} from "./landing/login/login.component";
+import {CallbackComponent} from "./landing/callback/callback.component";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -22,13 +26,23 @@ import { LandingComponent } from './landing/landing.component';
     MediaComponent,
     NotificationComponent,
     SantuaryMapComponent,
-    LandingComponent
+    LandingComponent,
+
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LoginComponent,
+    CallbackComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
